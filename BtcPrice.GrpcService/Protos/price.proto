@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+option csharp_namespace = "BtcPrice.GrpcService.Services";
+
+package btcprice;
+
+service PriceService {
+  rpc GetAggregatedPrice (GetAggregatedPriceRequest) returns (PriceResponse);
+  rpc GetPriceHistory (GetPriceHistoryRequest) returns (PriceHistoryResponse);
+}
+
+message GetAggregatedPriceRequest {
+  int64 timestamp_unix = 1;
+}
+
+message GetPriceHistoryRequest {
+  int64 from_unix = 1;
+  int64 to_unix = 2;
+}
+
+message PriceResponse {
+  int64 timestamp_utc = 1;
+  double price = 2;
+}
+
+message PriceHistoryResponse {
+  repeated PriceResponse prices = 1;
+}
+
